@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "prompt_tokens": {
+      "minimum": 0,
+      "title": "Prompt Tokens",
+      "type": "integer"
+    },
+    "completion_tokens": {
+      "minimum": 0,
+      "title": "Completion Tokens",
+      "type": "integer"
+    },
+    "cached_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cached Tokens"
+    },
+    "image_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Tokens"
+    },
+    "reasoning_tokens": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reasoning Tokens"
+    },
+    "total_tokens": {
+      "minimum": 0,
+      "title": "Total Tokens",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "prompt_tokens",
+    "completion_tokens",
+    "total_tokens"
+  ],
+  "title": "Usage",
+  "type": "object"
+}

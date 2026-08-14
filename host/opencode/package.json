@@ -1,0 +1,13 @@
+{
+  "name": "deepseek-eyes-opencode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenCode desktop (V1) host adapter for DeepSeek Eyes",
+  "scripts": {
+    "smoke": "node --experimental-strip-types smoke.mjs"
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": "1.18.15"
+  }
+}

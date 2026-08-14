@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "BBox": {
+      "additionalProperties": false,
+      "description": "A normalized bounding box in ``[0, 1]`` image-relative coordinates.",
+      "properties": {
+        "x0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X0",
+          "type": "number"
+        },
+        "y0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y0",
+          "type": "number"
+        },
+        "x1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X1",
+          "type": "number"
+        },
+        "y1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y1",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "BBox",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A single tainted visual evidence item, bound to a source.",
+  "properties": {
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "text",
+        "ocr",
+        "code",
+        "diagram",
+        "exact_value",
+        "inference",
+        "conflict",
+        "unsupported"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "text": {
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "confidence": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "bbox": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BBox"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "exact": {
+      "default": false,
+      "title": "Exact",
+      "type": "boolean"
+    },
+    "inference": {
+      "default": false,
+      "title": "Inference",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "source_ref",
+    "kind",
+    "text",
+    "confidence"
+  ],
+  "title": "Evidence",
+  "type": "object"
+}

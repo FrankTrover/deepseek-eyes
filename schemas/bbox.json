@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "description": "A normalized bounding box in ``[0, 1]`` image-relative coordinates.",
+  "properties": {
+    "x0": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "X0",
+      "type": "number"
+    },
+    "y0": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Y0",
+      "type": "number"
+    },
+    "x1": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "X1",
+      "type": "number"
+    },
+    "y1": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Y1",
+      "type": "number"
+    }
+  },
+  "required": [
+    "x0",
+    "y0",
+    "x1",
+    "y1"
+  ],
+  "title": "BBox",
+  "type": "object"
+}

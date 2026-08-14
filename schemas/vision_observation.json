@@ -1,0 +1,310 @@
+{
+  "$defs": {
+    "BBox": {
+      "additionalProperties": false,
+      "description": "A normalized bounding box in ``[0, 1]`` image-relative coordinates.",
+      "properties": {
+        "x0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X0",
+          "type": "number"
+        },
+        "y0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y0",
+          "type": "number"
+        },
+        "x1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X1",
+          "type": "number"
+        },
+        "y1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y1",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "BBox",
+      "type": "object"
+    },
+    "Conflict": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "text",
+        "sources"
+      ],
+      "title": "Conflict",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "description": "A single tainted visual evidence item, bound to a source.",
+      "properties": {
+        "source_ref": {
+          "title": "Source Ref",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "text",
+            "ocr",
+            "code",
+            "diagram",
+            "exact_value",
+            "inference",
+            "conflict",
+            "unsupported"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "exact": {
+          "default": false,
+          "title": "Exact",
+          "type": "boolean"
+        },
+        "inference": {
+          "default": false,
+          "title": "Inference",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source_ref",
+        "kind",
+        "text",
+        "confidence"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Uncertainty": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "severity": {
+          "default": "low",
+          "enum": [
+            "low",
+            "material"
+          ],
+          "title": "Severity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "Uncertainty",
+      "type": "object"
+    },
+    "Usage": {
+      "additionalProperties": false,
+      "properties": {
+        "prompt_tokens": {
+          "minimum": 0,
+          "title": "Prompt Tokens",
+          "type": "integer"
+        },
+        "completion_tokens": {
+          "minimum": 0,
+          "title": "Completion Tokens",
+          "type": "integer"
+        },
+        "cached_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cached Tokens"
+        },
+        "image_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Tokens"
+        },
+        "reasoning_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reasoning Tokens"
+        },
+        "total_tokens": {
+          "minimum": 0,
+          "title": "Total Tokens",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "prompt_tokens",
+        "completion_tokens",
+        "total_tokens"
+      ],
+      "title": "Usage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured, tainted observation returned by the Runtime.\n\nThe trust boundary is hard-coded: visual output may never authorize\nprivileged actions, and every item is marked as untrusted evidence.",
+  "properties": {
+    "status": {
+      "const": "ok",
+      "default": "ok",
+      "title": "Status",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "v4.3",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "vision_schema_version": {
+      "default": "1",
+      "title": "Vision Schema Version",
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "uncertainty": {
+      "items": {
+        "$ref": "#/$defs/Uncertainty"
+      },
+      "title": "Uncertainty",
+      "type": "array"
+    },
+    "conflicts": {
+      "items": {
+        "$ref": "#/$defs/Conflict"
+      },
+      "title": "Conflicts",
+      "type": "array"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Summary"
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Usage"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "tainted": {
+      "const": true,
+      "default": true,
+      "title": "Tainted",
+      "type": "boolean"
+    },
+    "may_authorize_actions": {
+      "const": false,
+      "default": false,
+      "title": "May Authorize Actions",
+      "type": "boolean"
+    }
+  },
+  "title": "VisionObservation",
+  "type": "object"
+}

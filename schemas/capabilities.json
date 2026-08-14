@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "default": "deepseek_eyes",
+      "title": "Name",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "v4.3",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "vision_schema_version": {
+      "default": "1",
+      "title": "Vision Schema Version",
+      "type": "string"
+    },
+    "provider": {
+      "default": "mimo-v2.5",
+      "title": "Provider",
+      "type": "string"
+    },
+    "host_action_guard": {
+      "default": false,
+      "title": "Host Action Guard",
+      "type": "boolean"
+    },
+    "capture_available": {
+      "default": false,
+      "title": "Capture Available",
+      "type": "boolean"
+    },
+    "max_sources": {
+      "default": 8,
+      "title": "Max Sources",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version"
+  ],
+  "title": "CapabilitiesResult",
+  "type": "object"
+}

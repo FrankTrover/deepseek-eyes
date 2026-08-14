@@ -1,0 +1,20 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "const": "ok",
+      "default": "ok",
+      "title": "Status",
+      "type": "string"
+    },
+    "source_ref": {
+      "title": "Source Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_ref"
+  ],
+  "title": "CaptureResult",
+  "type": "object"
+}

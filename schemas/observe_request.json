@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "BBox": {
+      "additionalProperties": false,
+      "description": "A normalized bounding box in ``[0, 1]`` image-relative coordinates.",
+      "properties": {
+        "x0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X0",
+          "type": "number"
+        },
+        "y0": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y0",
+          "type": "number"
+        },
+        "x1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "X1",
+          "type": "number"
+        },
+        "y1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Y1",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x0",
+        "y0",
+        "x1",
+        "y1"
+      ],
+      "title": "BBox",
+      "type": "object"
+    },
+    "BBoxFocus": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "bbox",
+          "default": "bbox",
+          "title": "Kind",
+          "type": "string"
+        },
+        "bbox": {
+          "$ref": "#/$defs/BBox"
+        }
+      },
+      "required": [
+        "bbox"
+      ],
+      "title": "BBoxFocus",
+      "type": "object"
+    },
+    "FullFocus": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "full",
+          "default": "full",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "title": "FullFocus",
+      "type": "object"
+    },
+    "RegionFocus": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "region",
+          "default": "region",
+          "title": "Kind",
+          "type": "string"
+        },
+        "region_ref": {
+          "minLength": 5,
+          "title": "Region Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "region_ref"
+      ],
+      "title": "RegionFocus",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Input to ``deepseek_eyes_observe``.",
+  "properties": {
+    "sources": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "title": "Sources",
+      "type": "array"
+    },
+    "question": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+    },
+    "mode": {
+      "default": "extract",
+      "enum": [
+        "describe",
+        "extract",
+        "verify",
+        "compare",
+        "qa"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "focus": {
+      "anyOf": [
+        {
+          "discriminator": {
+            "mapping": {
+              "bbox": "#/$defs/BBoxFocus",
+              "full": "#/$defs/FullFocus",
+              "region": "#/$defs/RegionFocus"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FullFocus"
+            },
+            {
+              "$ref": "#/$defs/RegionFocus"
+            },
+            {
+              "$ref": "#/$defs/BBoxFocus"
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Focus"
+    },
+    "contract_version": {
+      "default": "v4.3",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "vision_schema_version": {
+      "default": "1",
+      "title": "Vision Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sources",
+    "question"
+  ],
+  "title": "ObserveRequest",
+  "type": "object"
+}

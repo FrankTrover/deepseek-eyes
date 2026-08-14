@@ -1,0 +1,51 @@
+{
+  "name": "deepseek-eyes-copilot",
+  "displayName": "DeepSeek Eyes for GitHub Copilot",
+  "description": "Adds vision to OAICopilot DeepSeek models through the local DeepSeek Eyes bridge.",
+  "publisher": "deepseek-eyes-local",
+  "version": "0.1.7",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguageModelChatProvider:deepseek-eyes"
+  ],
+  "enabledApiProposals": [
+    "chatProvider",
+    "languageModelSystem"
+  ],
+  "contributes": {
+    "languageModelChatProviders": [
+      {
+        "vendor": "deepseek-eyes",
+        "displayName": "DeepSeek Eyes"
+      }
+    ],
+    "configuration": {
+      "title": "DeepSeek Eyes",
+      "properties": {
+        "deepseekEyes.adapterCommand": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "C:\\Users\\THTGZ\\Desktop\\coding\\deepseek_eyes\\.venv\\Scripts\\python.exe",
+            "-m",
+            "deepseek_eyes.host_bridge"
+          ],
+          "description": "Command used to start the local DeepSeek Eyes bridge."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "smoke": "node smoke.mjs",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  }
+}

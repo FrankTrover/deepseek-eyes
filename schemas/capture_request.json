@@ -1,0 +1,17 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "scope": {
+      "default": "region",
+      "enum": [
+        "region",
+        "window",
+        "fullscreen"
+      ],
+      "title": "Scope",
+      "type": "string"
+    }
+  },
+  "title": "CaptureRequest",
+  "type": "object"
+}
