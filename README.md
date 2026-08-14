@@ -35,6 +35,7 @@ DeepSeek Eyes 在本地架起一座桥:
 | 宿主 | 形态 | 能力 |
 |---|---|---|
 | 任意 MCP 宿主 | stdio server(`deepseek-eyes-mcp`) | 3 工具:capabilities / observe / capture |
+| ZCode | MCP stdio + 模型守卫 | 读本地日志确认会话模型,非 DeepSeek 会话直接拒绝,防止视觉费用误扣 |
 | OpenCode 桌面端 | V1 插件(`host/opencode/plugin.ts`) | 附件自动注册 + marker 注入 + Action Guard |
 | VS Code Copilot | chatProvider 扩展(`host/vscode/`) | DeepSeek 模型直接获得视觉通道 |
 
