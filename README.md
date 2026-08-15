@@ -2,6 +2,8 @@
 
 > 给纯文本 DeepSeek 装上眼睛 —— 用小米 MiMo Token Plan 做视觉后端,让编程 Agent 真正看懂截图。
 
+**English:** DeepSeek Eyes gives text-only DeepSeek coding agents real vision. Paste or capture a screenshot in Copilot / OpenCode, and the agent can actually *see* it: images register with a tamper-proof `source_ref`, the agent calls `deepseek_eyes_observe`, and the Xiaomi MiMo (`mimo-v2.5`) vision backend returns structured, tainted evidence the text agent can reason over. Windows-first, fully local, credentials never touch disk.
+
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/downloads/release/python-3120/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
